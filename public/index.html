@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title> nos histoires exquises </title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- JS -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/recording.js"></script>
+  </head>
+
+
+
+  <!-- this is our landing page -->
+  <body>
+
+
+
+      <input id="TopButton" class="Button" type="submit" value="Record ta voix" onclick="RecordButtonPressed()"></input>
+      <textarea id="TextInput"></textarea>
+      <input id="BottomButton" class="Button" type="submit" value="Send transcript" onclick="SendButtonPressed()"></input>
+
+      <!-- for audio recording -->
+      <audio></audio>
+  </body>
+  <!-- brap -->
+
+
+
+
+</html>
