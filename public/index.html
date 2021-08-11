@@ -2,7 +2,9 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title> nos histoires exquises </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> (Nos) Histoires Exquises </title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/styles.css">
@@ -18,14 +20,21 @@
   <!-- this is our landing page -->
   <body>
 
+    <a id='link'href='about.html'> Pour en apprendre plus // To learn more </a>
+
+<h1 id='headerFR'>(Nos) Histoires Exquises</h1>
+<h1 id='headerEN'>(Our) Exquisite Histories</h1>
 
 
-      <input id="TopButton" class="Button" type="submit" value="Record ta voix" onclick="RecordButtonPressed()"></input>
-      <textarea id="TextInput"></textarea>
+<div id='inputDiv'>
+      <input id="TopButton" class="Button" type="submit" value='Enregistrer  Record' onclick="RecordButtonPressed()"></input><br>
+      <textarea id="TextInput"> Contribuez ici // Contribute here </textarea><br>
       <input id="BottomButton" class="Button" type="submit" value="Send transcript" onclick="SendButtonPressed()"></input>
 
       <!-- for audio recording -->
       <audio></audio>
+
+    </div>
   </body>
   <!-- brap -->
 

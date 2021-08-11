@@ -1,35 +1,166 @@
+
+@font-face {
+    font-family: 'gap_sansregular'; src: url('fonts/GapSans.ttf') format('truetype');
+    font-weight: normal;  font-style: normal;
+}
+@font-face {
+    font-family: 'gap_sansblack'; src: url('fonts/GapSansBlack.ttf') format('truetype');
+    font-weight: normal; font-style: normal;
+}
+@font-face {
+    font-family: 'gap_sansbold'; src: url('fonts/GapSansBold.ttf') format('truetype');
+    font-weight: normal; font-style: normal;
+}
+
 *{
   background-color:white;
   color:black;
 }
 
 body{
-  width:96vw;
+  width:99vw;
   height:96vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-around;
+  padding: 1%;
+  display: block;  /* flex-direction:column; */
+  background-color: rgb(20,20,20);
 }
 
+p{
+  background-color: inherit;
+}
+
+#link{
+  margin-left: 1%;
+    font-family: 'gap_sansregular', sans-serif;
+    color:rgb(230,230,230);
+    background-color: rgb(20,20,20);
+}
+#headerFR{
+  font-family: 'gap_sansbold', sans-serif;
+  /* font-style: italic; */
+  font-size:3vw;
+  margin-left: 5%;
+  color:rgb(230,230,230);
+  background-color: rgb(20,20,20);
+  text-shadow: 0px 0px 5px #FFFFE0;
+
+}
+#headerEN{
+  font-family: 'gap_sansbold', sans-serif;
+  /* font-style: italic; */
+  font-size: 2.7vw;
+  margin-left: 15%;
+  color:rgb(230,230,230);
+  background-color: rgb(20,20,20);
+  color:rgb(230,230,230);
+  text-shadow: 0px 0px 4px #FFFFE0;
+
+
+}
 #TextInput{
-  width:100%;
+  width:50%;
   height:28vh;
+  margin-right: 5%;
+  background-color:rgb(230,230,230);
+  border-style: inset;
+  border-radius: 10px;
+  border-width: thick;
+  font-family: 'gap_sansblack', sans-serif;
+ padding: 1%;
+ color: rgb(90,90,90);
+ box-shadow: 0px 0px 9px #ffff;
+
 }
 
 .Button{
   width:100%;
   height:28vh;
+  background-color:rgb(230,230,230);
+  box-shadow: 0px 0px 9px #ffff;
+
+
+}
+input {
+  white-space: normal;
+  -webkit-appearance: none;
 }
 
+textarea {
+  white-space: normal;
+  -webkit-appearance: none;
+}
+#inputDiv{
+  margin-top: 10%;
+  background-color: rgb(20,20,20);
+  display: flex;
+  flex-wrap: wrap;
+}
 #TopButton{
+font-family: 'gap_sansbold', sans-serif;
+  /* background: url('microphone-342.png') no-repeat 50% 40%; */
+  background-color:#ff826b;
+  margin:auto;
+  height: 250px;
+width:250px;
+font-size:1.5vw;
+border-radius: 50%;
+border-style: outset;
+border-width:15px;
+border-color: tomato;
+}
 
+#TopButton:hover{
+  cursor: pointer;
 }
 
 #BottomButton{
-
+  font-family: 'gap_sansblack', sans-serif;
+  margin: 2%;
+  height: 50px;
+width: 10%;
+margin-left: 84%;
+border-radius: 30px;
+background-color: gainsboro;
+border-color: dimgrey;
+border-width: 7px;
+box-shadow: 0px 0px 9px #ffff;
 }
 
 .Recording{
   color:white;
-  background-color:tomato;
+  border-color: #cc4f38 !important;
+  background-color:tomato !important;
+}
+
+/* ////////////////////////////////// about page //////////////////////////////////// */
+
+
+#textDiv{
+  background-color: rgb(20,20,20);
+  display: flex;
+  flex-wrap: wrap;
+}
+.about{
+   background-color: inherit;
+   width: 60%;
+   margin:auto;
+   text: 3vw;
+ }
+.aboutP{
+  text-align: justify;
+  line-height: 1.7;
+  font-size: 20px;
+  background-color: rgb(20,20,20);
+  font-family: 'gap_sansregular', sans-serif;
+ color: rgb(200,200,200);
+}
+
+.aboutEN{
+  font-style: italic;
+}
+#aboutLink{
+  margin-left: 1%;
+    font-family: 'gap_sansregular', sans-serif;
+    color:rgb(230,230,230);
+    background-color: rgb(20,20,20);
 }
