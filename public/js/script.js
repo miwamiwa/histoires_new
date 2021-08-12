@@ -24,6 +24,7 @@ let recordAnim;
 
 let recordButton;
 let inputField;
+let fieldval = "";
 
 // start()
 //
@@ -36,6 +37,40 @@ function start(){
   recordButtonText= recordButton.value;
   inputField = document.getElementById("TextInput");
 
+  //inputField.onclick = inputFieldClicked;
+  //inputField.onfocusout = inputFieldUnFocused;
+  fieldval = inputField.innerHTML;
+  document.body.onclick = checkfocus;
+}
+
+let fieldfocused = false;
+
+function checkfocus(){
+  let chk = inputField==document.activeElement;
+  if(!fieldfocused&&chk){
+    fieldfocused = true;
+    inputFieldClicked();
+  }
+  else if (fieldfocused&&!chk){
+    fieldfocused = false;
+    inputFieldUnFocused ();
+  }
+}
+
+
+function inputFieldClicked (){
+  if(inputField.innerHTML==fieldval){
+    inputField.innerHTML = "";
+  }
+
+  if(inputField.value==fieldval){
+    inputField.value = "";
+  }
+}
+
+function inputFieldUnFocused (){
+  if(inputField.innerHTML==""&&inputField.value=="")
+  inputField.value = fieldval;
 }
 
 // socketIOSetup()
