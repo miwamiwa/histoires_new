@@ -24,24 +24,31 @@ const encoding = 'LINEAR16';
 const sampleRateHertz = 16000;
 let languageCode = 'en-US'; //en-US
 
-let lastclient;
+// rita
+let RiTa = require('rita');
+let rm = new RiTa.markov(2);
+let markovready=false;
+let all_phrases = [];
+let all_gen_phrases = [];
+
+
 // setup app
 app.use(express.static(path.join(__dirname,"public")));
 server.listen(PORT,()=>console.log(`server running on port ${PORT}`));
+
+
 
 // ------- socket setup -------
 
 // when a new client connects:
 io.on('connection',socket=>{
 
-  lastclient = socket;
   console.log("client connected to server");
   // set up listeners for this client:
-
   // example message
-  socket.on("messagefromclient",msg=>{
-
-  });
+  // socket.on("messagefromclient",msg=>{});
+  // message to all:
+  // socket.broadcast.emit("header","mssage");
 
 
   //
@@ -69,12 +76,26 @@ io.on('connection',socket=>{
 
   // on receiving final text from front-end
   socket.on("InputFieldData", data=>{
+    all_phrases.push(data);
+    // send to mongo
     SaveUserInput(data, socket);
+    // add to RiTa buffer
+    rm.addText(data);
+
+    // grab the first 5 or less words
+    let counter =0;
+    let input = "";
+    data.split(" ").forEach(word=>{
+      if(counter<5) input += word + " ";
+      counter++;
+    });
+
+    // generate a phrase from that
+    getrita(input);
   });
 
 
-  // message to all:
-  // socket.broadcast.emit("header","mssage");
+
 
   // answer something to confirm connection
   socket.emit("messagefromserver","hi, client!");
@@ -91,6 +112,33 @@ const { MongoClient } = require('mongodb');
 const uri = process.env.MONGO_queryurl;
 const mongoclient = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
+async function GetMongoDataOnStart(){
+  try {
+    await mongoclient.connect();
+    const database = mongoclient.db(process.env.MONGO_dbname);
+    const collection = database.collection("all_sayings");
+
+    const query = {};
+    const options = {
+      // sort returned documents in ascending order by title (A->Z)
+      sort: { title: 1 }
+    };
+    const cursor = collection.find(query, options);
+    // print a message if no documents were found
+    if ((await cursor.count()) === 0) {
+      console.log("No documents found!");
+    }
+    // replace console.dir with your callback to access individual elements
+    await cursor.forEach(doc=>{
+      console.log(doc);
+      rm.addText(doc.body);
+    });
+  } finally {
+    await mongoclient.close();
+  }
+}
+
+GetMongoDataOnStart();
 
 // SaveUserInput()
 //
@@ -99,9 +147,19 @@ const mongoclient = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopo
 function SaveUserInput(txt, socket){
 
   mongoclient.connect(err => {
-
     addThing(txt,socket);
+  });
+}
 
+function SaveGeneratedInput(txt,socket){
+
+  mongoclient.connect(err =>{
+    dbADD(
+      "all_sayings",
+      {body:txt,time:"today"},
+      undefined,
+      {header:"server_response",message:"success"},
+      {header:"server_response",message:"failure"}).catch(console.dir);
   });
 }
 
@@ -134,19 +192,17 @@ async function dbADD(collectionName,data,socket,response,failresponse) {
          // Insert a single document, wait for promise so we can read it back
          const p = await col.insertOne(data);
 
-         // Find one document
-        // const myDoc = await col.findOne();
-         // Print to the console
-        // console.log(myDoc);
-
         // send response if specified
-        if(response!=undefined)
-          socket.emit(response.header,response.message);
+        if(socket!=undefined){
+          if(response!=undefined)
+            socket.emit(response.header,response.message);
+        }
+
         } catch (err) {
          console.log(err.stack);
-         if(failresponse!=undefined)
+         if(failresponse!=undefined&&socket!=undefined)
           socket.emit(failresponse.header,failresponse.message);
-     }
+        }
 
      finally {
       mongoclient.close();
@@ -217,5 +273,61 @@ function GetRequest(){
       enableWordTimeOffsets: false
     },
     interimResults: true
+  }
+}
+
+
+
+
+
+/// *** Rita
+
+async function getrita(inputText){
+
+  try{
+
+    let opts = {};
+    if(inputText!=undefined){
+      opts = {seed:inputText};
+    }
+    // generate a phrase
+    let r = await rm.generate(1, opts);
+    console.log("generating something with rita");
+    console.log("result: " + r);
+
+
+    // if we successfully generated something
+    if(r!=undefined&&r!=false&&r!=""){
+
+
+      // add to list of generated words
+      // saveGeneratedPhrase(r);
+      if(!all_phrases.includes(r[0])){
+        // save
+        all_gen_phrases.push(r[0]);
+        // send to mongooo
+        SaveGeneratedInput(r[0]);
+        // add to rita buffer???
+        rm.addText(r[0]);
+      }
+
+
+    }
+    // if we got busted results?
+    else{
+      console.log(";(");
+    }
+
+    // if the result is a fail message
+    // usually means there's not enough text to generate new
+  }
+  catch(error){
+    console.log("\nrita failed!")
+    console.log(error);
+
+    // if we use a phrase prompt for input,
+    // try without a prompt instead 
+    if(inputText!=undefined) getrita();
+    return false;
   }
 }
