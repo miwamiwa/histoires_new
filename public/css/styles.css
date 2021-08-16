@@ -1,93 +1,108 @@
+@font-face {
+  font-family: 'gap_sansregular';
+  src: url('fonts/GapSans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 @font-face {
-    font-family: 'gap_sansregular'; src: url('fonts/GapSans.ttf') format('truetype');
-    font-weight: normal;  font-style: normal;
-}
-@font-face {
-    font-family: 'gap_sansblack'; src: url('fonts/GapSansBlack.ttf') format('truetype');
-    font-weight: normal; font-style: normal;
-}
-@font-face {
-    font-family: 'gap_sansbold'; src: url('fonts/GapSansBold.ttf') format('truetype');
-    font-weight: normal; font-style: normal;
+  font-family: 'gap_sansblack';
+  src: url('fonts/GapSansBlack.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
-*{
-  background-color:white;
-  color:black;
+@font-face {
+  font-family: 'gap_sansbold';
+  src: url('fonts/GapSansBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
-body{
-  width:99vw;
-  height:96vh;
+body {
+  width: 99vw;
+  height: 96vh;
   padding: 1%;
-  display: inline-block;  /* flex-direction:column; */
-  background-color: rgb(20,20,20);
+  display: inline-block;
+  /* flex-direction:column; */
+  background-color: rgb(20, 20, 20);
+  font-family: 'gap_sansregular', sans-serif;
+  color: white;
 }
 
-p{
+p {
   background-color: inherit;
 }
 
-#link{
+#link {
   margin-left: 1%;
-    font-family: 'gap_sansregular', sans-serif;
-    color:rgb(230,230,230);
-    background-color: rgb(20,20,20);
+  font-family: 'gap_sansregular', sans-serif;
+  color: rgb(230, 230, 230);
+  background-color: rgb(20, 20, 20);
 }
-#headerFR{
+
+#headerFR {
   font-family: 'gap_sansbold', sans-serif;
   /* font-style: italic; */
-  font-size:3vw;
+  font-size: 3vw;
   margin-left: 5%;
-  color:rgb(230,230,230);
-  background-color: rgb(20,20,20);
+  color: rgb(230, 230, 230);
+  background-color: rgb(20, 20, 20);
   text-shadow: 0px 0px 5px #FFFFE0;
-
 }
-#headerEN{
+
+#headerEN {
   font-family: 'gap_sansbold', sans-serif;
   /* font-style: italic; */
   font-size: 2.7vw;
   margin-left: 15%;
-  color:rgb(230,230,230);
-  background-color: rgb(20,20,20);
-  color:rgb(230,230,230);
+  color: rgb(230, 230, 230);
+  background-color: rgb(20, 20, 20);
   text-shadow: 0px 0px 4px #FFFFE0;
-
-
 }
 
-#inputDiv{
-  margin-top: 10%;
-  background-color:rgb(20,20,20);
+#instructionsDiv {
+  margin-top: 50px;
+  padding: 0 10px;
+  color: rgb(100, 100, 100);
+}
+
+#prompt_box {
+  font-size: 2em;
+  font-style: italic;
+  color: rgb(230, 230, 230);
+  padding: 20px;
+}
+
+#inputDiv {
+  margin-top: 50px;
+  background-color: rgb(20, 20, 20);
   display: flex;
   flex-direction: row;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
 }
-#TextInput{
-  width:50%;
-  height:28vh;
+
+#TextInput {
+  width: 50%;
+  height: 28vh;
   margin-right: 5%;
-  background-color:rgb(230,230,230);
+  background-color: rgb(230, 230, 230);
   border-style: inset;
   border-radius: 10px;
   border-width: thick;
   font-family: 'gap_sansblack', sans-serif;
- padding: 1%;
- color: rgb(90,90,90);
- box-shadow: 0px 0px 9px #ffff;
-
-}
-
-.Button{
-  width:100%;
-  height:28vh;
-  background-color:rgb(230,230,230);
+  padding: 1%;
+  color: rgb(90, 90, 90);
   box-shadow: 0px 0px 9px #ffff;
-
-
 }
+
+.Button {
+  width: 100%;
+  height: 28vh;
+  background-color: rgb(230, 230, 230);
+  box-shadow: 0px 0px 9px #ffff;
+}
+
 input {
   white-space: normal;
   -webkit-appearance: none;
@@ -97,109 +112,156 @@ textarea {
   white-space: normal;
   -webkit-appearance: none;
 }
-#TopButton{
-font-family: 'gap_sansbold', sans-serif;
+
+#TopButton {
+  font-family: 'gap_sansbold', sans-serif;
   /* background: url('microphone-342.png') no-repeat 50% 40%; */
-  background-color:#ff826b;
-  margin:auto;
+  background-color: #ff826b;
+  margin: auto;
   height: 250px;
-width:250px;
-font-size:1.5vw;
-border-radius: 50%;
-border-style: outset;
-border-width:15px;
-border-color: tomato;
-font-style:italic;
+  width: 250px;
+  font-size: 1.5vw;
+  border-radius: 50%;
+  border-style: outset;
+  border-width: 15px;
+  border-color: tomato;
+  font-style: italic;
 }
 
-#TopButton:hover{
+#TopButton:hover {
   cursor: pointer;
 }
 
-#BottomButton{
+#BottomButton {
   font-family: 'gap_sansblack', sans-serif;
   margin: 2%;
   height: 50px;
-width: 10%;
-margin-left: 84%;
-border-radius: 30px;
-background-color: gainsboro;
-border-color: dimgrey;
-border-width: 7px;
-box-shadow: 0px 0px 9px #ffff;
+  width: 10%;
+  margin-left: 84%;
+  border-radius: 30px;
+  background-color: gainsboro;
+  border-color: dimgrey;
+  border-width: 7px;
+  box-shadow: 0px 0px 9px #ffff;
 }
 
-.Recording{
-  color:white;
+.Recording {
+  color: white;
   border-color: #cc4f38 !important;
-  background-color:tomato !important;
+  background-color: tomato !important;
+}
+/* ////////////////////////////////// modal //////////////////////////////////// */
+#success_modal{
+  position: fixed;
+  top:0;
+  right:0;
+  z-index:100;
+  width: 100%;
+  height: 100%;
+  color: black;
+  background-color: rgba(20, 20, 20, 0.5);
+  display: none;
+}
+
+#success_modal div{
+  background-color: white;
+  width: 90%;
+  max-width: 300px;
+  height: 250px;
+  padding: 20px;
+  margin: auto;
+  margin-top: 10%;
+  border-radius: 10px;
+}
+
+#OKButton {
+  font-family: 'gap_sansbold', sans-serif;
+  /* background: url('microphone-342.png') no-repeat 50% 40%; */
+  background-color: #ff826b;
+  height: auto;
+  width: auto;
+  padding: 0 20px;
+  font-size: 1.5em;
+  border-radius: 10px;
+  border-style: outset;
+  border-width: 5px;
+  border-color: tomato;
+}
+
+#OKButton:hover {
+  cursor: pointer;
 }
 
 /* ////////////////////////////////// about page //////////////////////////////////// */
-
-
-#textDiv{
-  background-color: rgb(20,20,20);
+#textDiv {
+  background-color: rgb(20, 20, 20);
   display: flex;
   flex-wrap: wrap;
 }
-.about{
-   background-color: inherit;
-   width: 60%;
-   margin:auto;
- }
-.aboutP{
+
+.about {
+  background-color: inherit;
+  width: 60%;
+  margin: auto;
+}
+
+.aboutP {
   text-align: justify;
   line-height: 1.7;
   font-size: 20px;
-  background-color: rgb(20,20,20);
+  background-color: rgb(20, 20, 20);
   font-family: 'gap_sansregular', sans-serif;
- color: rgb(200,200,200);
+  color: rgb(200, 200, 200);
 }
 
-.aboutEN{
+.aboutEN {
   font-style: italic;
 }
-#aboutLink{
+
+#aboutLink {
   margin-left: 1%;
-    font-family: 'gap_sansregular', sans-serif;
-    color:rgb(230,230,230);
-    background-color: rgb(20,20,20);
+  font-family: 'gap_sansregular', sans-serif;
+  color: rgb(230, 230, 230);
+  background-color: rgb(20, 20, 20);
 }
 
 /* ///////////////////////////////////// mobile ////////////////////////////////////////// */
 @media only screen and (max-width: 768px) {
-
-  body{
-    width:99vw;
-    height:100vh;
-    background-color: rgb(20,20,20);
+  body {
+    width: 99vw;
+    height: 100vh;
+    background-color: rgb(20, 20, 20);
   }
 
-  #headerFR{
+  #headerFR {
     font-size: 8vw;
   }
-  #headerEN{
+
+  #headerEN {
     font-size: 7vw;
   }
 
-#TopButton{
-  width: 200px;
-  height: 200px;
-  font-size: 6vw;
-  margin-bottom: 3vh;
-}
-  #TextInput{
+  #TopButton {
+    width: 200px;
+    height: 200px;
+    font-size: 6vw;
+    margin-bottom: 3vh;
+  }
+
+  #TextInput {
     width: 80%;
     height: 25vh;
     overflow-y: scroll;
     margin: auto;
   }
-  #BottomButton{
+
+  #BottomButton {
     width: 50%;
     margin: auto;
-    margin-top:2vh;
+    margin-top: 2vh;
   }
-  .about{
-width: 80%;  }
+
+  .about {
+    width: 80%;
+  }
 }

@@ -126,4 +126,9 @@ function SendButtonPressed(){
   socket.emit("InputFieldData", txt);
 
   inputField.value = "";
+  document.getElementById("success_modal").style.display = "block";
+}
+
+function OKButtonPressed(){
+  document.getElementById("success_modal").style.display = "none";
 }
