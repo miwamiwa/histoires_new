@@ -36,11 +36,11 @@ function start(){
   recordButton = document.getElementById("TopButton");
   recordButtonText= recordButton.value;
   inputField = document.getElementById("TextInput");
-
-  //inputField.onclick = inputFieldClicked;
-  //inputField.onfocusout = inputFieldUnFocused;
   fieldval = inputField.innerHTML;
+
   document.body.onclick = checkfocus;
+
+  requestPrompt();
 }
 
 let fieldfocused = false;
@@ -73,6 +73,11 @@ function inputFieldUnFocused (){
   inputField.value = fieldval;
 }
 
+function requestPrompt(){
+  console.log("Requested prompt");
+  socket.emit("RequestPrompt", "please");
+}
+
 // socketIOSetup()
 //
 // connect to socket io and setup listeners
@@ -94,6 +99,12 @@ function socketIOSetup(){
     console.log("Final Transcript: "+msg);
     ResetRecordButton();
     inputField.value = msg;
+  });
+
+
+  socket.on("PromptResponse", msg=>{
+    console.log("Received prompt: "+msg);
+    document.getElementById("prompt_text_output").innerHTML = msg;
   });
 
   // send a test message

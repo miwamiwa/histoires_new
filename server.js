@@ -23,6 +23,7 @@ let recognizeStream = null;
 const encoding = 'LINEAR16';
 const sampleRateHertz = 16000;
 let languageCode = 'en-US'; //en-US
+let alternativeLanguageCodes = ['en-US', 'fr-CA'];
 
 // rita
 let RiTa = require('rita');
@@ -44,6 +45,8 @@ server.listen(PORT,()=>console.log(`server running on port ${PORT}`));
 io.on('connection',socket=>{
 
   console.log("client connected to server");
+
+  let thingssaid = [];
   // set up listeners for this client:
   // example message
   // socket.on("messagefromclient",msg=>{});
@@ -77,6 +80,7 @@ io.on('connection',socket=>{
   // on receiving final text from front-end
   socket.on("InputFieldData", data=>{
     all_phrases.push(data);
+    thingssaid.push(data);
     // send to mongo
     SaveUserInput(data, socket);
     // add to RiTa buffer
@@ -95,7 +99,21 @@ io.on('connection',socket=>{
   });
 
 
+  socket.on("RequestPrompt",()=>{
 
+    let pick = Math.floor(Math.random()*all_phrases.length);
+    let randomsaying = all_phrases[pick];
+
+    //console.log(pick);
+    //console.log(thingssaid);
+    while(thingssaid.length!=all_phrases.length&&thingssaid.includes(randomsaying)){
+      pick = Math.floor(Math.random()*all_phrases.length);
+      randomsaying = all_phrases[pick];
+    }
+
+
+      socket.emit("PromptResponse",randomsaying);
+  });
 
   // answer something to confirm connection
   socket.emit("messagefromserver","hi, client!");
@@ -132,6 +150,7 @@ async function GetMongoDataOnStart(){
     await cursor.forEach(doc=>{
       console.log(doc);
       rm.addText(doc.body);
+      all_phrases.push(doc.body);
     });
   } finally {
     await mongoclient.close();
@@ -269,6 +288,7 @@ function GetRequest(){
       encoding: encoding,
       sampleRateHertz: sampleRateHertz,
       languageCode: languageCode,
+      alternativeLanguageCodes: alternativeLanguageCodes,
       profanityFilter: true,
       enableWordTimeOffsets: false
     },
@@ -326,7 +346,7 @@ async function getrita(inputText){
     console.log(error);
 
     // if we use a phrase prompt for input,
-    // try without a prompt instead 
+    // try without a prompt instead
     if(inputText!=undefined) getrita();
     return false;
   }
