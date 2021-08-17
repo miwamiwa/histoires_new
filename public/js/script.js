@@ -114,9 +114,8 @@ function socketIOSetup(){
 
 
 
-function RecordButtonPressed(){
-
-  if(!recordingInProgress) initRecording();
+function RecordButtonPressed(lang){
+  if(!recordingInProgress) initRecording(lang);
   else stopRecording();
 
   //recordingInProgress = !recordingInProgress;

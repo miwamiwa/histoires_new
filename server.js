@@ -22,8 +22,8 @@ const speechClient = new speech.SpeechClient({
 let recognizeStream = null;
 const encoding = 'LINEAR16';
 const sampleRateHertz = 16000;
-let languageCode = 'en-US'; //en-US
-let alternativeLanguageCodes = ['en-US', 'fr-FR'];
+let langCode = 'fr-FR'; //en-US
+let altLanguageCodes = ['en-US', 'fr-FR'];
 
 // rita
 let RiTa = require('rita');
@@ -60,6 +60,7 @@ io.on('connection',socket=>{
   // mic input start
   socket.on('startGoogleCloudStream', data=>{
       console.log("opened mic on front-end");
+      langCode=data;
       startRecognitionStream(socket);
   });
 
@@ -253,8 +254,6 @@ async function dbADD(collectionName,data,socket,response,failresponse) {
 function startRecognitionStream(tempclient) {
   console.log("started streaming mic data to gcloud");
 
-  // set language here
-  languageCode = 'en-US';
 
   // listened for incoming data
   recognizeStream = speechClient
@@ -300,8 +299,8 @@ function GetRequest(){
     config: {
       encoding: encoding,
       sampleRateHertz: sampleRateHertz,
-      languageCode: languageCode,
-      alternativeLanguageCodes: alternativeLanguageCodes,
+      languageCode: langCode,
+      alternativeLanguageCodes: altLanguageCodes,
       profanityFilter: true,
       enableWordTimeOffsets: false
     },

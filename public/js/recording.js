@@ -9,7 +9,7 @@ functions that update the record button,
 //
 // called in RecordButtonPressed (script.js)
 
-function initRecording() {
+function initRecording(lang) {
 
   // update interface
   AnimateRecordButton();
@@ -18,7 +18,7 @@ function initRecording() {
 
   // start recording
 
-  socket.emit('startGoogleCloudStream', ''); //init socket Google Speech Connection
+  socket.emit('startGoogleCloudStream', lang); //init socket Google Speech Connection
   streamStreaming = true;
 
   AudioContext = window.AudioContext || window.webkitAudioContext;

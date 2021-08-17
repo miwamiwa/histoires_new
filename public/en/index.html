@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title> (Our) Exquisite Histories </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/styles.css">
+
+  <!-- JS -->
+  <script src="../socket.io/socket.io.js"></script>
+  <script src="../js/script.js"></script>
+  <script src="../js/recording.js"></script>
+</head>
+
+
+
+<!-- this is our landing page -->
+
+<body>
+
+  <a id='link' href='about.html'> Learn more </a>
+  <a id='link' href='../index.html'> Francais </a>
+
+  <h1 id='headerFR'>(Our) Exquisite Histories</h1>
+
+  <div id="instructionsDiv">
+    <h3>Continue the story by answering this prompt from the previous participant:</h3>
+    <div id="prompt_box">
+      <span id="prompt_text_output"></span>
+    </div>
+    <h3>Record your voice or contribute by writing</h3>
+  </div>
+
+  <div id='inputDiv'>
+    <input id="TopButton" class="Button" type="submit" value='Record' onclick="RecordButtonPressed('en-US')"></input><br>
+    <textarea id="TextInput">Contribute here </textarea><br>
+    <input id="BottomButton" class="Button" type="submit" value="Send" onclick="SendButtonPressed()"></input>
+
+    <!-- for audio recording -->
+    <audio></audio>
+
+  </div>
+
+  <div id="success_modal">
+    <div>
+      <p>Thank you for contributing! Look out for your phrase on the building projection.</p>
+      <input id="OKButton" class="Button" type="submit" value='OK' onclick="OKButtonPressed()"></input><br>
+    </div>
+  </div>
+</body>
+<!-- brap -->
+
+
+
+
+</html>
