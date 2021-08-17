@@ -112,12 +112,14 @@ function socketIOSetup(){
 }
 
 
+
+
 function RecordButtonPressed(){
 
   if(!recordingInProgress) initRecording();
   else stopRecording();
 
-  recordingInProgress = !recordingInProgress;
+  //recordingInProgress = !recordingInProgress;
 }
 
 function SendButtonPressed(){

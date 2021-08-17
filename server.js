@@ -23,7 +23,7 @@ let recognizeStream = null;
 const encoding = 'LINEAR16';
 const sampleRateHertz = 16000;
 let languageCode = 'en-US'; //en-US
-let alternativeLanguageCodes = ['en-US', 'fr-CA'];
+let alternativeLanguageCodes = ['en-US', 'fr-FR'];
 
 // rita
 let RiTa = require('rita');
@@ -31,6 +31,9 @@ let rm = new RiTa.markov(2);
 let markovready=false;
 let all_phrases = [];
 let all_gen_phrases = [];
+
+
+let sorted_all_phrases = [];
 
 
 // setup app
@@ -46,7 +49,6 @@ io.on('connection',socket=>{
 
   console.log("client connected to server");
 
-  let thingssaid = [];
   // set up listeners for this client:
   // example message
   // socket.on("messagefromclient",msg=>{});
@@ -58,7 +60,7 @@ io.on('connection',socket=>{
   // mic input start
   socket.on('startGoogleCloudStream', data=>{
       console.log("opened mic on front-end");
-      startRecognitionStream(this);
+      startRecognitionStream(socket);
   });
 
 
@@ -80,7 +82,8 @@ io.on('connection',socket=>{
   // on receiving final text from front-end
   socket.on("InputFieldData", data=>{
     all_phrases.push(data);
-    thingssaid.push(data);
+    sorted_all_phrases.push({data:data,address:socket.handshake.address.address});
+    //thingssaid.push(data);
     // send to mongo
     SaveUserInput(data, socket);
     // add to RiTa buffer
@@ -101,18 +104,27 @@ io.on('connection',socket=>{
 
   socket.on("RequestPrompt",()=>{
 
+/*
+// random saying:
     let pick = Math.floor(Math.random()*all_phrases.length);
     let randomsaying = all_phrases[pick];
-
-    //console.log(pick);
-    //console.log(thingssaid);
     while(thingssaid.length!=all_phrases.length&&thingssaid.includes(randomsaying)){
       pick = Math.floor(Math.random()*all_phrases.length);
       randomsaying = all_phrases[pick];
     }
 
+    socket.emit("PromptResponse",randomsaying);
+    */
 
-      socket.emit("PromptResponse",randomsaying);
+    // pick latest saying that wasn't said by me
+    let i = sorted_all_phrases.length -1;
+    while(i>=0&&sorted_all_phrases.length>0&&sorted_all_phrases[i].address==socket.handshake.address.address) i--;
+
+    if(sorted_all_phrases.length>0&&i>=0){
+      socket.emit("PromptResponse", sorted_all_phrases[i].data);
+    }
+    else socket.emit("PromptResponse", all_phrases[all_phrases.length-1]);
+
   });
 
   // answer something to confirm connection
@@ -263,6 +275,7 @@ function startRecognitionStream(tempclient) {
       tempclient.emit('FinalSpeechData', data.results[0].alternatives[0].transcript);
 
       stopRecognitionStream();
+
     }
 
   });

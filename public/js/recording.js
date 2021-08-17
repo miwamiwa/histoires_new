@@ -14,6 +14,8 @@ function initRecording() {
   // update interface
   AnimateRecordButton();
 
+  recordingInProgress = true;
+
   // start recording
 
   socket.emit('startGoogleCloudStream', ''); //init socket Google Speech Connection
@@ -104,10 +106,12 @@ function AnimateRecordButton(){
 // set record button back to its initial state
 
 function ResetRecordButton(){
+
   clearInterval(recordAnim);
   let button = document.getElementById("TopButton");
   button.classList.remove("Recording");
   button.value = recordButtonText;
+  recordingInProgress = false;
 }
 
 
