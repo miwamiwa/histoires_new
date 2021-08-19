@@ -45,10 +45,18 @@
 
   </div>
 
-  <div id="success_modal">
+  <div class="modal" id="success_modal">
     <div>
       <p>Thank you for contributing! Look out for your phrase on the building projection.</p>
-      <input id="OKButton" class="Button" type="submit" value='OK' onclick="OKButtonPressed()"></input><br>
+      <input id="OKButton" class="Button" type="submit" value='OK' onclick="CloseModal('success_modal')"></input><br>
+    </div>
+  </div>
+
+  <div class="modal" id="profanity_modal">
+    <div>
+      <p>Your submissions contains words that are not family friendly and will be hidden.</p>
+      <input id="OKButton" class="Button" type="submit" value='Modify submission' onclick="CloseModal('profanity_modal')"></input>
+      <input id="OKButton" class="Button" type="submit" value='Submit anyway' onclick="SendSubmission()"></input>
     </div>
   </div>
 </body>

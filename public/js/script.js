@@ -107,6 +107,10 @@ function socketIOSetup(){
     document.getElementById("prompt_text_output").innerHTML = msg;
   });
 
+  socket.on("ProfanityDetectionResponse", msg=>{
+    console.log("Submission contains profanity: "+msg);
+    ProfanityDetectionModal(msg);
+  });
   // send a test message
   socket.emit("messagefromclient","i just joined wazaa");
 }
@@ -124,12 +128,25 @@ function RecordButtonPressed(lang){
 function SendButtonPressed(){
   let txt = inputField.value;
 
-  socket.emit("InputFieldData", txt);
+  socket.emit("ProfanityDetection", txt);
+}
 
+function ProfanityDetectionModal(profanityDetected){
+  if(profanityDetected){
+    document.getElementById("profanity_modal").style.display = "block";
+  }else{
+    SendSubmission();
+  }
+}
+
+function SendSubmission(){
+  document.getElementById("profanity_modal").style.display = "none";
+  let txt = inputField.value;
+  socket.emit("InputFieldData", txt);
   inputField.value = "";
   document.getElementById("success_modal").style.display = "block";
 }
 
-function OKButtonPressed(){
-  document.getElementById("success_modal").style.display = "none";
+function CloseModal(id){
+  document.getElementById(id).style.display = "none";
 }

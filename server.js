@@ -82,6 +82,19 @@ io.on('connection',socket=>{
     }
   });
 
+  socket.on("ProfanityDetection", data=>{
+    let containsProfanity = false;
+    filter.reset();
+    if(filter.check(data)){
+      containsProfanity = true;
+    }
+    filter.loadDictionary('fr');
+    if(filter.check(data)){
+      containsProfanity = true;
+    }
+    socket.emit("ProfanityDetectionResponse", containsProfanity);
+  })
+
   // on receiving final text from front-end
   socket.on("InputFieldData", data=>{
     filter.reset();

@@ -45,10 +45,18 @@
 
   </div>
 
-  <div id="success_modal">
+  <div class="modal" id="success_modal">
     <div>
       <p>Merci pour votre contribution! Gardez un oeuil sur la projection pour y trouver votre phrase.</p>
-      <input id="OKButton" class="Button" type="submit" value='OK' onclick="OKButtonPressed()"></input><br>
+      <input id="OKButton" class="Button" type="submit" value='OK' onclick="CloseModal('success_modal')"></input><br>
+    </div>
+  </div>
+
+  <div class="modal" id="profanity_modal">
+    <div>
+      <p>Votre phrase contient des mots qui ne conviennent pas a une audience familiale et qui seront caches.</p>
+      <input id="OKButton" class="Button" type="submit" value='Modifier le texte' onclick="CloseModal('profanity_modal')"></input>
+      <input id="OKButton" class="Button" type="submit" value='Soumettre quand meme' onclick="SendSubmission()"></input>
     </div>
   </div>
 </body>
