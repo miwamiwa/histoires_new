@@ -35,6 +35,8 @@ let all_gen_phrases = [];
 
 let sorted_all_phrases = [];
 
+//profanity filter
+const filter = require('leo-profanity');
 
 // setup app
 app.use(express.static(path.join(__dirname,"public")));
@@ -82,6 +84,11 @@ io.on('connection',socket=>{
 
   // on receiving final text from front-end
   socket.on("InputFieldData", data=>{
+    filter.reset();
+    data = filter.clean(data);
+    filter.loadDictionary('fr');
+    data = filter.clean(data);
+    console.log(data);
     all_phrases.push(data);
     sorted_all_phrases.push({data:data,address:socket.handshake.address.address});
     //thingssaid.push(data);
