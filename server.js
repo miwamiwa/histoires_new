@@ -37,6 +37,54 @@ let sorted_all_phrases = [];
 
 //profanity filter
 const filter = require('leo-profanity');
+let profanitiesQc = [
+  "batard",
+  "batince",
+  "baptince",
+  "calisse",
+  "calicer",
+  "calisser",
+  "decalisse",
+  "decalicer",
+  "decalisser",
+  "calicement",
+  "calissement",
+  "calvaire",
+  "ciboire",
+  "cibouere",
+  "crisse",
+  "crisser",
+  "decrisser",
+  "criss",
+  "cristi",
+  "crissement",
+  "enfant de chienne",
+  "ostie", 
+  "estie", 
+  "osti", 
+  "hostie",
+  "esti", 
+  "asti", 
+  "sti", 
+  "marde",
+  "sacristie",
+  "saint-sacramant",
+  "saint sacramant",
+  "simonac",
+  "simonaque",
+  "tabarnak",
+  "tabarnac",
+  "tabarnack",
+  "tabarnik",
+  "tabarnouche", 
+  "tabarnoune", 
+  "tabarnache", 
+  "tabarnane", 
+  "tabarouette", 
+  "tabarnage",
+  "taboire",
+  "tabarnaquement"
+];
 
 // setup app
 app.use(express.static(path.join(__dirname,"public")));
@@ -89,6 +137,7 @@ io.on('connection',socket=>{
       containsProfanity = true;
     }
     filter.loadDictionary('fr');
+    filter.add(profanitiesQc);
     if(filter.check(data)){
       containsProfanity = true;
     }
@@ -100,6 +149,7 @@ io.on('connection',socket=>{
     filter.reset();
     data = filter.clean(data);
     filter.loadDictionary('fr');
+    filter.add(profanitiesQc);
     data = filter.clean(data);
     console.log(data);
     all_phrases.push(data);
